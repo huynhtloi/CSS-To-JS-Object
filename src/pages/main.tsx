@@ -1,9 +1,19 @@
-// import type * as Stitches from '@stitches/react';
 import { camelCase } from 'lodash'
 import { useRef, useState } from 'react'
 import Area from '../components/Area'
 import Button from '../components/Button'
-import { block, main, title } from '../styles/main.style'
+import {
+  StyledBlock,
+  StyledMain,
+  StyledMainTitle,
+  StyledButtonToast,
+  Toast,
+  ToastAction,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+} from '../styles/main.style'
 
 const tokenizer = (data: string) => {
   const tokens = []
@@ -81,30 +91,46 @@ const convertToJs = (tokens: string[]) => {
 const HomePage = () => {
   const convertRef = useRef<HTMLTextAreaElement>(null)
   const [convertVal, setConvertVal] = useState<string | undefined>('')
+  const [open, setOpen] = useState(false)
 
   const handleOnClickClear = () => {
     setConvertVal('')
   }
 
   const handleOnClickConvert = () => {
-    const convert = convertToJs(tokenizer(convertRef.current ? convertRef.current.value : ''))
-    setConvertVal(convert)
+    const data = convertToJs(tokenizer(convertRef.current ? convertRef.current.value : ''))
+    setConvertVal(data)
+    setOpen(true)
   }
 
   return (
     <>
-      <h1 className={title({ variant: 'main' })}>Transform</h1>
-      <h2 className={title()}>CSS to JS Object</h2>
-      <div className={main()}>
-        <div className={block({ variant: 'left' })}>
+      <h1 className={StyledMainTitle({ variant: 'main' })}>Transform</h1>
+      <h2 className={StyledMainTitle()}>CSS to JS Object</h2>
+      <div className={StyledMain()}>
+        <div className={StyledBlock({ variant: 'left' })}>
           <Area ref={convertRef} type='convert' disable={false} />
           <Button type='convert' title='Convert' handleOnClickButton={handleOnClickConvert} />
         </div>
-        <div className={block({ variant: 'right' })}>
+        <div className={StyledBlock({ variant: 'right' })}>
           <Area type='clear' disable={true} value={convertVal} />
           <Button type='clear' title='Clear' handleOnClickButton={handleOnClickClear} />
         </div>
       </div>
+      <ToastProvider swipeDirection='right'>
+        <Toast open={open} onOpenChange={setOpen}>
+          <ToastTitle>Notification:</ToastTitle>
+          <ToastDescription asChild className='hello'>
+            <div>Transform successfully</div>
+          </ToastDescription>
+          <ToastAction asChild altText='Go to close'>
+            <button className={StyledButtonToast({ size: 'small', variant: 'green' })}>
+              Close
+            </button>
+          </ToastAction>
+        </Toast>
+        <ToastViewport />
+      </ToastProvider>
     </>
   )
 }
