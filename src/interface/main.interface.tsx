@@ -4,10 +4,11 @@ export interface MainInterface {
 }
 
 export interface ButtonInterface extends MainInterface {
-  handleOnClickButton: () => void
+  handleOnClickButton?: () => void
 }
 
 export interface AreaInterface extends MainInterface {
   value: string
   disable: boolean
+  holder?: string
 }

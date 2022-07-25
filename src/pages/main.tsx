@@ -109,7 +109,7 @@ const HomePage = () => {
       <h2 className={StyledMainTitle()}>CSS to JS Object</h2>
       <div className={StyledMain()}>
         <div className={StyledBlock({ variant: 'left' })}>
-          <Area ref={convertRef} type='convert' disable={false} />
+          <Area ref={convertRef} type='convert' disable={false} holder='Enter css code' />
           <Button type='convert' title='Convert' handleOnClickButton={handleOnClickConvert} />
         </div>
         <div className={StyledBlock({ variant: 'right' })}>
