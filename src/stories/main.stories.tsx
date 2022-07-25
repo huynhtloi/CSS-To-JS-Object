@@ -18,22 +18,35 @@ export const EmptyTextAreas = Template.bind({})
 export const FilledTextAreas = Template.bind({})
 
 FilledTextAreas.play = async ({ canvasElement }) => {
-  const code = `  .main-wrapper {
-    flex-direction: row;
+  const code = `  body {
     display: flex;
-    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: 600;
+    min-height: 100vh;
   }
-  #content {
-    flex: 1;
+  
+  .stopwatch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:min(80%,30rem);
+    height:min(30vh,10rem) ;
+    padding: 1rem;
+    margin: 1rem;
+    background: white;
+    border-radius: 2rem;
+    border-top: 5px solid royalblue;
+    border-bottom: 5px solid royalblue;
   }
-  ul {
-    padding: 20px 0;
-    flex: 1;
-  }
-  li {
-    font-family:'Lato';
-    color: whitesmoke;
-    line-height: 44px;
+  #stopwatch__timer {
+    width: 60%;
+    margin-top: -5px;
+    text-align: left;
+    font-size:min(10vw,4rem) ;
   }`
   const canvas = within(canvasElement)
   const areaConvert = canvas.getByPlaceholderText('Enter css code')
